@@ -72,6 +72,20 @@ public class Axect implements ContentListener {
         content.setContentListener(this);
     }
 
+    /**
+     * Задачается контент, в котором находится View для эффекта парллакса
+     *
+     * @param view         - контент
+     * @param parallaxView - View, для которой создается эффект параллакса
+     * @param listener     - слушатель NestedScrollView.OnScrollChangeListener,
+     *                     если нужно отслеживать изменения scroll
+     */
+    public void setContent(NestedScrollView view, View parallaxView,
+                           NestedScrollView.OnScrollChangeListener listener) {
+        content = new NestedScrollViewContent(view, parallaxView, listener);
+        content.setContentListener(this);
+    }
+
     @Override
     public void onScrolled(int dx, int dy) {
         scrollPosition += dy;

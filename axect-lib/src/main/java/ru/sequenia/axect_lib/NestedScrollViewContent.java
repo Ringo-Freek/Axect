@@ -10,15 +10,23 @@ class NestedScrollViewContent implements Content {
 
     private NestedScrollView content;
     private AxectView axcelView;
+    private NestedScrollView.OnScrollChangeListener listener;
 
     NestedScrollViewContent(NestedScrollView content, View parallaxView) {
         this.content = content;
         this.axcelView = new AxectViewNestedScrollView(parallaxView);
     }
 
+    NestedScrollViewContent(NestedScrollView content, View parallaxView,
+                            NestedScrollView.OnScrollChangeListener listener) {
+        this.content = content;
+        this.axcelView = new AxectViewNestedScrollView(parallaxView);
+        this.listener = listener;
+    }
+
     @Override
-    public void setContentListener(final ContentListener listener) {
-        if (listener == null || content == null) {
+    public void setContentListener(final ContentListener contentListener) {
+        if (contentListener == null || content == null) {
             return;
         }
 
@@ -26,7 +34,11 @@ class NestedScrollViewContent implements Content {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY,
                                        int oldScrollX, int oldScrollY) {
-                listener.onScrolled(scrollX - oldScrollX, scrollY - oldScrollY);
+                contentListener.onScrolled(scrollX - oldScrollX, scrollY - oldScrollY);
+
+                if (listener != null) {
+                    listener.onScrollChange(v, scrollX, scrollY, oldScrollX, oldScrollY);
+                }
             }
         });
     }

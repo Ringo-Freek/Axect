@@ -9,7 +9,7 @@
 	}
     
     dependencies {
-        implementation 'com.github.Ringo-Freek:Axect:axect-lib:X.X.X-alpha'
+        implementation 'com.github.Ringo-Freek:Axect:axect-lib:X.X.X'
 	}
 
 ### Объявление
